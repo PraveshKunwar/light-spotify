@@ -1,6 +1,6 @@
 {
   "name": "spotifier-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
   "main": "lib/index.js",
   "types": "lib",
