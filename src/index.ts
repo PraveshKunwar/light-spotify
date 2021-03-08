@@ -5,10 +5,10 @@
  * @returns The addition of x and y
  */
 
-function add(x, y) {
+function add(x: number, y: number) {
   return x + y;
 }
 
 add(1, 2);
 
-module.exports.add = add;
+export { add };
