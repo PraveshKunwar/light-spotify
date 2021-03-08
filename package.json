@@ -1,0 +1,19 @@
+{
+  "name": "spotifier-node",
+  "version": "1.0.0",
+  "description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PraveshKunwar/spotifier-node.js.git"
+  },
+  "author": "Pravesh Kunwar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PraveshKunwar/spotifier-node.js/issues"
+  },
+  "homepage": "https://github.com/PraveshKunwar/spotifier-node.js#readme"
+}
