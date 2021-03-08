@@ -1,11 +1,11 @@
 {
-  "name": "node-spotify",
+  "name": "SpotifyWrapperNodeJS",
   "version": "1.0.3",
   "description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
-    "build": "tsc -p."
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
