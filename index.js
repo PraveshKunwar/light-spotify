@@ -10,3 +10,5 @@ function add(x, y) {
 }
 
 add(1, 2);
+
+module.exports.add = add;
