@@ -1,3 +1,3 @@
-class NodeSpotify {}
+import setToken from "./config/token";
 
-export { NodeSpotify };
+export default setToken;
