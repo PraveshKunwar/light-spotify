@@ -1,10 +1,10 @@
-# What is SpotifyWrapperNodeJS?
+# What is light-spotify?
 
-Spotifier is a Spotify wrapper to make it easy to work with Spotify's API.
+light-spotify is a Spotify wrapper to make it easy to work with Spotify's API.
 
 # Installation
 
 For npm:
-`npm i SpotifyWrapperNodeJS`
+`npm i light-spotify`
 For yarn:
-`yarn add SpotifyWrapperNodeJS`
+`yarn add light-spotify`
