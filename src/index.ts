@@ -32,3 +32,6 @@ class LightSpotify {
 export { LightSpotify };
 
 const ads = new LightSpotify();
+ads.setAccessToken =
+  "BQAlJ_2dVtsnyGXuCxda-hjPOcqoTntEeAPBq5HIXamM2NV8KLjIrc9TPBgkJ-jc2jhLBgsGRx39OMujPiQ";
+console.log(ads.access_token);
