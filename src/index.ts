@@ -1,6 +1,20 @@
+import { AxiosResponse } from 'axios';
 import { stringify } from 'querystring';
+import { getAlbum, getMultipleAlbums, getAlbumTracks } from './albums';
 
 class LightSpotify {
+	/**
+	 * @returns Promise<AxiosResponse>
+	 */
+	public getAlbum = getAlbum;
+	/**
+	 * @returns Promise<AxiosResponse>
+	 */
+	public getMultipleAlbums = getMultipleAlbums;
+	/**
+	 * @returns Promise<AxiosResponse>
+	 */
+	public getAlbumTracks = getAlbumTracks;
 	public access_token: string;
 	/**
 
@@ -20,5 +34,3 @@ class LightSpotify {
 }
 
 export { LightSpotify };
-
-const ads = new LightSpotify();
