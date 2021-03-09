@@ -1,6 +1,6 @@
 {
   "name": "light-spotify",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
   "main": "lib/index.js",
   "types": "lib",
