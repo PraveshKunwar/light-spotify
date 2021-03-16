@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { stringify } from 'querystring';
 /**
  *
  * @param token The valid access token.

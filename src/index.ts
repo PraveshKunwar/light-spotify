@@ -21,7 +21,7 @@ class LightSpotify {
 	 * @returns A new instance of LightSpotify.
 	 */
 	public constructor() {}
-	get getAccessToken() {
+	get getAccessToken() {	
 		return this.access_token;
 	}
 	/**
