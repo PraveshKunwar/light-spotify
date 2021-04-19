@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
-import { BASE } from './@types/constants';
-import { markets } from './@types/market';
+import { BASE } from './typedefs/constants';
+import { markets } from './typedefs/market';
 
 /**
  *
  * @param {String} token The auth token to request data.
  * @param {String | String[]} ids Id or ids of albums.
- * @param {String} market The market for the album. (OPTIONAL)
+ * @param {String} market The market for the album. (OPTIONAL) https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
  * @returns Promise<void | AxiosResponse<any>>
  */
 
@@ -53,7 +53,7 @@ export const getMultipleAlbums = (
  *
  * @param {String} token The auth token to request data.
  * @param {String} id  The id of the specific album you want to get data for.
- *  @param {String} market The market for the album. (OPTIONAL)
+ *  @param {String} market The market for the album. (OPTIONAL) https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
  * @returns Promsie<void | AxiosResponse<any>>
  */
 

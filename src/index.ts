@@ -13,19 +13,19 @@ class LightSpotify {
 	 * @returns A new instance of LightSpotify.
 	 */
 	public constructor() {}
-	public get getAccessToken() {
+	/**
+	 * @returns The access token. (MUST BE SET BEFOREHAND USING setAccessToken SETTER.)
+	 */
+	public get getAccessToken(): string {
 		return this.access_token;
 	}
 	/**
 	 * @returns Sets the access token (check out Spotify's Guide)
 	 * @link https://developer.spotify.com/documentation/general/guides/authorization-guide/
 	 */
-	public setAccessToken(token: string): void {
+	public set setAccessToken(token: string) {
 		this.access_token = token;
 	}
 }
 
 export { LightSpotify };
-
-const t = new LightSpotify();
-t.setAccessToken('asd');
