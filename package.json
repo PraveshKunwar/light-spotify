@@ -1,27 +1,27 @@
 {
-  "name": "light-spotify",
-  "version": "1.1.2",
-  "description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
-  "main": "lib/index.js",
-  "types": "lib",
-  "scripts": {
-    "build": "tsc",
-    "start": "nodemon lib/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PraveshKunwar/node-spotify.git"
-  },
-  "author": "Pravesh Kunwar",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/PraveshKunwar/node-spotify/issues"
-  },
-  "homepage": "https://github.com/PraveshKunwar/node-spotify#readme",
-  "dependencies": {
-    "@types/node": "^14.14.41",
-    "axios": "^0.21.1",
-    "buffer": "^6.0.3",
-    "node-fetch": "^2.6.1"
-  }
+	"name": "light-spotify",
+	"version": "1.1.2",
+	"description": "A Spotify wrapper that makes it easy to work with Spotify's api.",
+	"main": "lib/index.js",
+	"types": "lib",
+	"scripts": {
+		"build": "tsc",
+		"start": "nodemon lib/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PraveshKunwar/light-spotify.git"
+	},
+	"author": "Pravesh Kunwar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/PraveshKunwar/node-spotify/issues"
+	},
+	"homepage": "https://github.com/PraveshKunwar/node-spotify#readme",
+	"dependencies": {
+		"@types/node": "^14.14.41",
+		"axios": "^0.21.1",
+		"buffer": "^6.0.3",
+		"node-fetch": "^2.6.1"
+	}
 }
