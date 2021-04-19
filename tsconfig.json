@@ -6,7 +6,7 @@
 		"checkJs": true,
 		"outDir": "./lib",
 		"rootDir": "./src",
-		"removeComments": true,
+		"removeComments": false,
 		"noEmit": false,
 		"noEmitOnError": false,
 		"noImplicitAny": false,

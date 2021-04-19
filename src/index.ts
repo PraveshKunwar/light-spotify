@@ -20,7 +20,7 @@ class LightSpotify {
 	 * @returns Sets the access token (check out Spotify's Guide)
 	 * @link https://developer.spotify.com/documentation/general/guides/authorization-guide/
 	 */
-	public set setAccessToken(token: string) {
+	public setAccessToken(token: string): void {
 		this.access_token = token;
 	}
 }
@@ -28,3 +28,4 @@ class LightSpotify {
 export { LightSpotify };
 
 const t = new LightSpotify();
+t.setAccessToken('asd');
