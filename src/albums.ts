@@ -1,72 +1,65 @@
 import axios, { AxiosResponse } from 'axios';
+import { BASE } from './@types/constants';
+
 /**
  *
- * @param token The valid access token.
- * @param ids The id or ids of the albums. NOTE: MULTIPLE IDS SHOULD BE IN CORRECT FORMAT.
- * @returns Info of multiple albums with the valid ids requested.
- * @link https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-albums
+ * @param {String} token The auth token to request data.
+ * @param {String | String[]} ids Id or ids of albums.
+ * @returns Promise<void | AxiosResponse<any>>
  */
 
-const _base = 'https://api.spotify.com/v1';
 export const getMultipleAlbums = (
 	token: string,
-	ids: string | Array<string>
+	ids: string | string[]
 ): Promise<void | AxiosResponse<any>> => {
 	if (Array.isArray(ids)) {
-		return axios
-			.get(_base + `/albums?ids=${ids.join('%2C')}`, {
-				headers: {
-					Authorization: 'Bearer ' + token,
-				},
-			})
-			.catch((err) => console.log(err));
+		return axios.get(BASE.url + `/albums?ids=${ids.join('%2C')}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 	} else if (!Array.isArray(ids)) {
-		return axios
-			.get(_base + `/albums?ids=${ids}`, {
-				headers: {
-					Authorization: 'Bearer ' + token,
-				},
-			})
-			.catch((err) => console.log(err));
+		return axios.get(BASE.url + `/albums?ids=${ids}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+	}
+	if (!Array.isArray(ids) && typeof ids !== 'string') {
+		throw new Error(
+			'Make sure that the id is of type string or an array of strings.'
+		);
+	}
+	if (Array.isArray(ids)) {
+		for (let i = 0; i < ids.length; i++) {
+			const element = ids[i];
+			if (typeof element !== 'string') {
+				throw new Error(
+					'Please make sure that all ids in the array are strings.'
+				);
+			}
+		}
 	}
 };
 
 /**
  *
- * @param token
- * @param id
- * @returns The albums info.
- * @link https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-album
+ * @param {String} token The auth token to request data.
+ * @param {String} id  The id of the specific album you want to get data for.
+ * @returns Promsie<void | AxiosResponse<any>>
  */
+
 export const getAlbum = (
 	token: string,
 	id: string
 ): Promise<void | AxiosResponse<any>> => {
-	return axios
-		.get(_base + `/albums/${id}`, {
+	if (typeof id !== 'string') {
+		throw new Error('Id must be string.');
+	} else if (typeof id === 'string') {
+		return axios.get(BASE.url + `/albums/${id}`, {
 			headers: {
-				Authorization: 'Bearer ' + token,
+				Authorization: `Bearer ${token}`,
 			},
-		})
-		.catch((err) => console.log(err));
-};
-
-/**
- *
- * @param token
- * @param id
- * @returns The albums info.
- * @link https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-album
- */
-export const getAlbumTracks = (
-	token: string,
-	id: string
-): Promise<void | AxiosResponse<any>> => {
-	return axios
-		.get(_base + `/albums/${id}/tracks`, {
-			headers: {
-				Authorization: 'Bearer ' + token,
-			},
-		})
-		.catch((err) => console.log(err));
+		});
+	}
 };
