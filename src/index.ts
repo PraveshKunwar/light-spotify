@@ -14,7 +14,10 @@ class LightSpotify {
 	 * @returns A new instance of LightSpotify.
 	 */
 	public constructor() {}
-	public get getAccessToken() {
+	/**
+	 * @returns The access token. (MUST BE SET BEFOREHAND USING setAccessToken SETTER.)
+	 */
+	public get getAccessToken(): string {
 		return this.access_token;
 	}
 	/**
