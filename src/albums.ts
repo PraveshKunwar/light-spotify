@@ -20,10 +20,15 @@ export const getMultipleAlbums = (
 			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
 		);
 	}
+	if(Array.isArray(ids)){
+		if(ids.length > 20 || ids.length < 1){
+			throw new Error("Please make sure that the array has a max of 20 ids.")
+		}
+	}
 	if (Array.isArray(ids)) {
 		return axios.get(
 			BASE.url +
-				`/albums?ids=${ids.join('%2C')}?market=${market ? market : 'US'}`,
+				`/albums?ids=${ids.join('%2C')}&market=${market ? market : 'US'}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -31,7 +36,7 @@ export const getMultipleAlbums = (
 			}
 		);
 	} else if (!Array.isArray(ids)) {
-		return axios.get(BASE.url + `/albums?ids=${ids}`, {
+		return axios.get(BASE.url + `/albums?ids=${ids}&market=${market ? market : "US"}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
@@ -90,6 +95,16 @@ export const getAlbum = (
 	}
 };
 
+/**
+ *
+ * @param {String} token The auth token to request data.
+ * @param {String} id The id of the album you want to get tracks for.
+ * @param {String} market The market for the album. (OPTIONAL)
+ * @param {Number} limit The limit of tracks (OPTIONAL | MIN: 1 | DEFAULT: 20 | MAX: 50)
+ * @param {Number} offset The index of the first track you want to return. (OPTIONAL)
+ * @returns Promise<void | AxiosResponse<any>>
+ */
+
 export const getAlbumTracks = (
 	token: string,
 	id: string,
@@ -115,7 +130,7 @@ export const getAlbumTracks = (
 		throw new Error('Id must be string.');
 	} else if (typeof id === 'string') {
 		return axios.get(
-			BASE.url +
+			BASE.url +		
 				`/albums/${id}/tracks?market=${market ? market : 'US'}&limit=${
 					limit ? limit : 1
 				}&offset=${offset ? offset : 1}`,
