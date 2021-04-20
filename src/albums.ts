@@ -15,17 +15,20 @@ export const getMultipleAlbums = (
 	ids: string | string[],
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
-	if (typeof market !== 'string') {
+	if (!ids) {
+		throw new Error('Please make sure that an id is provided.');
+	}
+	if (market && typeof market !== 'string') {
 		throw new Error(
 			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
 		);
 	}
-	if(Array.isArray(ids)){
-		if(ids.length > 20 || ids.length < 1){
-			throw new Error("Please make sure that the array has a max of 20 ids.")
+	if (Array.isArray(ids)) {
+		if (ids.length > 20 || ids.length < 1) {
+			throw new Error('Please make sure that the array has a max of 20 ids.');
 		}
 	}
-	if (Array.isArray(ids)) {
+	if (Array.isArray(ids) && token && ids) {
 		return axios.get(
 			BASE.url +
 				`/albums?ids=${ids.join('%2C')}&market=${market ? market : 'US'}`,
@@ -35,12 +38,15 @@ export const getMultipleAlbums = (
 				},
 			}
 		);
-	} else if (!Array.isArray(ids)) {
-		return axios.get(BASE.url + `/albums?ids=${ids}&market=${market ? market : "US"}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+	} else if (!Array.isArray(ids) && token && ids) {
+		return axios.get(
+			BASE.url + `/albums?ids=${ids}&market=${market ? market : 'US'}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
 	} else if (Array.isArray(ids)) {
 		if (ids.length > 20) {
 			throw new Error('Can only have 20 ids max.');
@@ -76,14 +82,23 @@ export const getAlbum = (
 	id: string,
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
-	if (typeof market !== 'string') {
+	if (!id) {
+		throw new Error('Please make sure that an id is provided.');
+	}
+	if (!token) {
+		throw new Error('Please make sure that a token is provided.');
+	}
+	if (typeof token !== 'string') {
+		throw new Error('Token must of type string.');
+	}
+	if (market && typeof market !== 'string') {
 		throw new Error(
 			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
 		);
 	}
 	if (typeof id !== 'string') {
-		throw new Error('Id must be string.');
-	} else if (typeof id === 'string') {
+		throw new Error('Id must be of type string.');
+	} else if (typeof id === 'string' && token && id) {
 		return axios.get(
 			BASE.url + `/albums/${id}?market=${market ? market : 'US'}`,
 			{
@@ -112,7 +127,16 @@ export const getAlbumTracks = (
 	limit?: number,
 	offset?: number
 ): Promise<void | AxiosResponse<any>> => {
-	if (typeof market !== 'string') {
+	if (!token) {
+		throw new Error('Please make sure that a token is provided.');
+	}
+	if (!id) {
+		throw new Error('Please make sure that an id is provided.');
+	}
+	if (typeof token !== 'string') {
+		throw new Error('Token must of type string.');
+	}
+	if (market && typeof market !== 'string') {
 		throw new Error(
 			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
 		);
@@ -128,9 +152,9 @@ export const getAlbumTracks = (
 	}
 	if (typeof id !== 'string') {
 		throw new Error('Id must be string.');
-	} else if (typeof id === 'string') {
+	} else if (typeof id === 'string' && token && id) {
 		return axios.get(
-			BASE.url +		
+			BASE.url +
 				`/albums/${id}/tracks?market=${market ? market : 'US'}&limit=${
 					limit ? limit : 1
 				}&offset=${offset ? offset : 1}`,
