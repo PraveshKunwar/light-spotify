@@ -15,6 +15,11 @@ export const getMultipleAlbums = (
 	ids: string | string[],
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
+	if (typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	}
 	if (Array.isArray(ids)) {
 		return axios.get(
 			BASE.url +
@@ -31,6 +36,10 @@ export const getMultipleAlbums = (
 				Authorization: `Bearer ${token}`,
 			},
 		});
+	} else if (Array.isArray(ids)) {
+		if (ids.length > 20) {
+			throw new Error('Can only have 20 ids max.');
+		}
 	}
 	if (!Array.isArray(ids) && typeof ids !== 'string') {
 		throw new Error(
@@ -62,6 +71,11 @@ export const getAlbum = (
 	id: string,
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
+	if (typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	}
 	if (typeof id !== 'string') {
 		throw new Error('Id must be string.');
 	} else if (typeof id === 'string') {
@@ -76,4 +90,40 @@ export const getAlbum = (
 	}
 };
 
-getMultipleAlbums('asd', 'asd');
+export const getAlbumTracks = (
+	token: string,
+	id: string,
+	market?: markets,
+	limit?: number,
+	offset?: number
+): Promise<void | AxiosResponse<any>> => {
+	if (typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	}
+	if ((limit && limit > 50) || limit < 1) {
+		throw new Error('Limit must be less than 50 and greater than 1.');
+	}
+	if (typeof limit !== 'number') {
+		throw new Error('Limit must be of type number.');
+	}
+	if (typeof offset !== 'number') {
+		throw new Error('Offset must be of type number.');
+	}
+	if (typeof id !== 'string') {
+		throw new Error('Id must be string.');
+	} else if (typeof id === 'string') {
+		return axios.get(
+			BASE.url +
+				`/albums/${id}/tracks?market=${market ? market : 'US'}&limit=${
+					limit ? limit : 1
+				}&offset=${offset ? offset : 1}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+	}
+};

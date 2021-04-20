@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { stringify } from 'querystring';
-import { getAlbum, getMultipleAlbums } from './albums';
+import { getAlbum, getMultipleAlbums, getAlbumTracks } from './albums';
 /**
  * @class Creates a new instance of Light Spotify.
  */
@@ -8,6 +8,7 @@ class LightSpotify {
 	private access_token: string;
 	public getAlbum = getAlbum;
 	public getMultipleAlbums = getMultipleAlbums;
+	public getAlbumTracks = getAlbumTracks;
 	/**
 
 	 * @returns A new instance of LightSpotify.
@@ -20,12 +21,9 @@ class LightSpotify {
 	 * @returns Sets the access token (check out Spotify's Guide)
 	 * @link https://developer.spotify.com/documentation/general/guides/authorization-guide/
 	 */
-	public setAccessToken(token: string): void {
+	public set setAccessToken(token: string) {
 		this.access_token = token;
 	}
 }
 
 export { LightSpotify };
-
-const t = new LightSpotify();
-t.setAccessToken('asd');
