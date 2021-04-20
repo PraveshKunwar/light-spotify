@@ -1,7 +1,13 @@
 import { AxiosResponse } from 'axios';
 import { stringify } from 'querystring';
 import { getAlbum, getMultipleAlbums, getAlbumTracks } from './albums';
-import { getArtist, getMultipleArtists } from './artists';
+import {
+	getArtist,
+	getArtistAlbums,
+	getArtistRelatedArtists,
+	getArtistTopTracks,
+	getMultipleArtists,
+} from './artists';
 /**
  * @class Creates a new instance of Light Spotify.
  */
@@ -12,6 +18,9 @@ class LightSpotify {
 	public getAlbumTracks = getAlbumTracks;
 	public getMultipleArtists = getMultipleArtists;
 	public getArtist = getArtist;
+	public getArtistTopTracks = getArtistTopTracks;
+	public getArtistRelatedArtists = getArtistRelatedArtists;
+	public getArtistAlbums = getArtistAlbums;
 	/**
 
 	 * @returns A new instance of LightSpotify.

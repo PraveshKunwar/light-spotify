@@ -147,7 +147,7 @@ export const getAlbumTracks = (
 	if (typeof limit !== 'number') {
 		throw new Error('Limit must be of type number.');
 	}
-	if (typeof offset !== 'number') {
+	if (offset && typeof offset !== 'number') {
 		throw new Error('Offset must be of type number.');
 	}
 	if (typeof id !== 'string') {

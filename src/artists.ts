@@ -157,14 +157,44 @@ export const getArtistRelatedArtists = (
 	}
 };
 
+/**
+ *
+ * @param {String} token The valid token to request data for.
+ * @param {String} id The id of the artist to get the album for.
+ * @param {String} includeGroups The include groups (OPTIONAL).
+ * @param {String} market The market for the album (OPTIONAL).
+ * @param {Number} limit The limit of albums to get (OPTIONAL).
+ * @param {Number} offset The offset of the albums (OPTIONAL).
+ * @returns Promise<void | AxiosResponse<any>>
+ */
+
 export const getArtistAlbums = (
 	token: string,
 	id: string,
-	includeGroups?: includeGroups[] | includeGroups,
+	includeGroups?: includeGroups[] | string[],
 	market?: markets,
 	limit?: number,
 	offset?: number
-) => {
+): Promise<void | AxiosResponse<any>> => {
+	if (Array.isArray(includeGroups)) {
+		for (let i = 0; i < includeGroups.length; i++) {
+			const element = includeGroups[i];
+			if (typeof element !== 'string') {
+				throw new Error(
+					'All include groups must be of type string, valid values are: album, single, appears_on, compilation'
+				);
+			}
+		}
+	}
+	if ((limit && limit > 50) || limit < 1) {
+		throw new Error('Limit must be less than 50 and greater than 1.');
+	}
+	if (typeof limit !== 'number') {
+		throw new Error('Limit must be of type number.');
+	}
+	if (typeof offset !== 'number') {
+		throw new Error('Offset must be of type number.');
+	}
 	if (typeof token !== 'string') {
 		throw new Error('Token must be of type string.');
 	}
@@ -177,7 +207,23 @@ export const getArtistAlbums = (
 	if (!id) {
 		throw new Error('Please make sure that an id is provided.');
 	}
-	/**if(Array.isArray(includeGroups)){
-		if(!includeGroups.includes)
-	}**/
+	if (market && typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	} else if (token && id) {
+		return axios.get(
+			BASE.url +
+				`/artists/${id}/albums?include_groups=${
+					includeGroups ? includeGroups.join(',') : 'album'
+				}&market=${market ? market : 'US'}&limit=${limit ? limit : 20}&offset=${
+					offset ? offset : 0
+				}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+	}
 };
