@@ -161,7 +161,7 @@ export const getArtistRelatedArtists = (
  *
  * @param {String} token The valid token to request data for.
  * @param {String} id The id of the artist to get the album for.
- * @param {String} includeGroups The include groups (OPTIONAL).
+ * @param {String[]} includeGroups The include groups (OPTIONAL).
  * @param {String} market The market for the album (OPTIONAL).
  * @param {Number} limit The limit of albums to get (OPTIONAL).
  * @param {Number} offset The offset of the albums (OPTIONAL).

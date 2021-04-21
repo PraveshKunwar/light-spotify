@@ -8,8 +8,10 @@ import {
 	getArtistTopTracks,
 	getMultipleArtists,
 } from './artists';
+import { browseNewReleases } from './browse';
 /**
- * @class Creates a new instance of Light Spotify.
+ * @returns Creates a new instance of Light Spotify.
+ * @description Initiate a new instance of Light Spotify, with access to the public methods.
  */
 class LightSpotify {
 	private access_token: string;
@@ -21,6 +23,7 @@ class LightSpotify {
 	public getArtistTopTracks = getArtistTopTracks;
 	public getArtistRelatedArtists = getArtistRelatedArtists;
 	public getArtistAlbums = getArtistAlbums;
+	public browseNewReleases = browseNewReleases;
 	/**
 
 	 * @returns A new instance of LightSpotify.
