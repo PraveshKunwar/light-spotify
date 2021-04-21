@@ -62,7 +62,7 @@ const albumIds = ['ID1', 'ID2', 'ID3']; // max 20 ids;
 spotify.setAccessToken = 'asd'; // get the auth token;
 //param 1: token || param 2: the album id or album ids || param 3: the market (valid ISO 3161 code).
 spotify
-	.getMultipleAlbums(LightSpotify.getAccessToken, albumIds, 'US') // returns Promise of AxiosResponse
+	.getMultipleAlbums(spotify.getAccessToken, albumIds, 'US') // returns Promise of AxiosResponse
 	//Handle the resolved promise.
 	.then((i) => {
 		console.log(i.data);
