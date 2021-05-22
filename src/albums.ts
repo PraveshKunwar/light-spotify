@@ -6,7 +6,7 @@ import { markets } from './typedefs/market';
  *
  * @param {String} token The auth token to request data.
  * @param {String | String[]} ids Id or ids of albums.
- * @param {String} market The market for the album. (OPTIONAL) https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+ * @param {String} market The market for the album. (OPTIONAL)
  * @returns Promise<void | AxiosResponse<any>>
  */
 
@@ -16,18 +16,37 @@ export const getMultipleAlbums = (
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
 	if (!ids) {
-		throw new Error('ID must be specified.');
-	}
-	if (typeof token !== 'string') {
-		throw new Error('Type token must be a string.');
+		throw new Error('Please make sure that an id is provided.');
 	}
 	if (!token) {
-		throw new Error('Token must be specified.');
+		throw new Error('Please make sure that a token is provided.');
 	}
-	if (Array.isArray(ids) && ids && token) {
+	if (typeof token !== 'string') {
+		throw new Error('Token must be of type string.');
+	}
+	if (market && typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	}
+	if (Array.isArray(ids)) {
+		if (ids.length > 20 || ids.length < 1) {
+			throw new Error('Please make sure that the array has a max of 20 ids.');
+		}
+	}
+	if (Array.isArray(ids) && token && ids) {
 		return axios.get(
 			BASE.url +
-				`/albums?ids=${ids.join('%2C')}?market=${market ? market : 'US'}`,
+				`/albums?ids=${ids.join('%2C')}&market=${market ? market : 'US'}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+	} else if (!Array.isArray(ids) && token && ids) {
+		return axios.get(
+			BASE.url + `/albums?ids=${ids}&market=${market ? market : 'US'}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -62,7 +81,7 @@ export const getMultipleAlbums = (
  *
  * @param {String} token The auth token to request data.
  * @param {String} id  The id of the specific album you want to get data for.
- *  @param {String} market The market for the album. (OPTIONAL) https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+ *  @param {String} market The market for the album. (OPTIONAL)
  * @returns Promsie<void | AxiosResponse<any>>
  */
 
@@ -75,14 +94,14 @@ export const getAlbum = (
 		throw new Error('Type token must be a string.');
 	}
 	if (!token) {
-		throw new Error('Token must be specified.');
+		throw new Error('Please make sure that a token is provided.');
 	}
 	if (!id) {
 		throw new Error('ID must be specified.');
 	}
 	if (typeof id !== 'string') {
 		throw new Error('Id must be string.');
-	} else if (typeof id === 'string' && id && token) {
+	} else if (id && token) {
 		return axios.get(
 			BASE.url + `/albums/${id}?market=${market ? market : 'US'}`,
 			{
