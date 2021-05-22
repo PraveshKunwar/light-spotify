@@ -15,7 +15,16 @@ export const getMultipleAlbums = (
 	ids: string | string[],
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
-	if (Array.isArray(ids)) {
+	if (!ids) {
+		throw new Error('ID must be specified.');
+	}
+	if (typeof token !== 'string') {
+		throw new Error('Type token must be a string.');
+	}
+	if (!token) {
+		throw new Error('Token must be specified.');
+	}
+	if (Array.isArray(ids) && ids && token) {
 		return axios.get(
 			BASE.url +
 				`/albums?ids=${ids.join('%2C')}?market=${market ? market : 'US'}`,
@@ -25,7 +34,7 @@ export const getMultipleAlbums = (
 				},
 			}
 		);
-	} else if (!Array.isArray(ids)) {
+	} else if (!Array.isArray(ids) && ids && token) {
 		return axios.get(BASE.url + `/albums?ids=${ids}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -62,9 +71,18 @@ export const getAlbum = (
 	id: string,
 	market?: markets
 ): Promise<void | AxiosResponse<any>> => {
+	if (typeof token !== 'string') {
+		throw new Error('Type token must be a string.');
+	}
+	if (!token) {
+		throw new Error('Token must be specified.');
+	}
+	if (!id) {
+		throw new Error('ID must be specified.');
+	}
 	if (typeof id !== 'string') {
 		throw new Error('Id must be string.');
-	} else if (typeof id === 'string') {
+	} else if (typeof id === 'string' && id && token) {
 		return axios.get(
 			BASE.url + `/albums/${id}?market=${market ? market : 'US'}`,
 			{
@@ -75,5 +93,3 @@ export const getAlbum = (
 		);
 	}
 };
-
-getMultipleAlbums('asd', 'asd');
