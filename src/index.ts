@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-import { stringify } from 'querystring';
 import { getAlbum, getMultipleAlbums, getAlbumTracks } from './albums';
 import {
 	getArtist,
@@ -8,7 +6,7 @@ import {
 	getArtistTopTracks,
 	getMultipleArtists,
 } from './artists';
-import { browseNewReleases } from './browse';
+import { browseNewReleases, browseFeaturedPlaylists } from './browse';
 /**
  * @returns Creates a new instance of Light Spotify.
  * @description Initiate a new instance of Light Spotify, with access to the public methods.
@@ -24,6 +22,7 @@ class LightSpotify {
 	public getArtistRelatedArtists = getArtistRelatedArtists;
 	public getArtistAlbums = getArtistAlbums;
 	public browseNewReleases = browseNewReleases;
+	public browseFeaturedPlaylists = browseFeaturedPlaylists;
 	/**
 
 	 * @returns A new instance of LightSpotify.

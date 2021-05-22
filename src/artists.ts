@@ -27,19 +27,15 @@ export const getMultipleArtists = (
 		if (ids.length > 50 || ids.length < 1) {
 			throw new Error('Please make sure that the array has a max of 50 ids.');
 		}
-	}
-	if (Array.isArray(ids) && token) {
-		return axios.get(BASE.url + `/artists?ids=${ids.join('%2C')}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
-	} else if (!Array.isArray(ids) && token) {
-		return axios.get(BASE.url + `/artists?ids=${ids}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+	} else if (ids && token) {
+		return axios.get(
+			BASE.url + `/artists?ids=${Array.isArray(ids) ? ids.join('%2C') : ids}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
 	}
 	if (!Array.isArray(ids) && typeof ids !== 'string') {
 		throw new Error(

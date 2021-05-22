@@ -34,32 +34,6 @@ export const getMultipleAlbums = (
 			throw new Error('Please make sure that the array has a max of 20 ids.');
 		}
 	}
-	if (Array.isArray(ids) && token && ids) {
-		return axios.get(
-			BASE.url +
-				`/albums?ids=${ids.join('%2C')}&market=${market ? market : 'US'}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-	} else if (!Array.isArray(ids) && token && ids) {
-		return axios.get(
-			BASE.url + `/albums?ids=${ids}&market=${market ? market : 'US'}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-	} else if (!Array.isArray(ids) && ids && token) {
-		return axios.get(BASE.url + `/albums?ids=${ids}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
-	}
 	if (!Array.isArray(ids) && typeof ids !== 'string') {
 		throw new Error(
 			'Make sure that the id is of type string or an array of strings.'
@@ -74,6 +48,18 @@ export const getMultipleAlbums = (
 				);
 			}
 		}
+	} else if (ids && token && ids) {
+		return axios.get(
+			BASE.url +
+				`/albums?ids=${Array.isArray(ids) ? ids.join('%2C') : ids}&market=${
+					market ? market : 'US'
+				}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
 	}
 };
 
@@ -104,6 +90,63 @@ export const getAlbum = (
 	} else if (id && token) {
 		return axios.get(
 			BASE.url + `/albums/${id}?market=${market ? market : 'US'}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+	}
+};
+
+/**
+ *
+ * @param {String} token The auth token to request data.
+ * @param {String} id The id of the album you want to get tracks for.
+ * @param {String} market The market for the album. (OPTIONAL)
+ * @param {Number} limit The limit of tracks (OPTIONAL | MIN: 1 | DEFAULT: 20 | MAX: 50)
+ * @param {Number} offset The index of the first track you want to return. (OPTIONAL)
+ * @returns Promise<void | AxiosResponse<any>>
+ */
+
+export const getAlbumTracks = (
+	token: string,
+	id: string,
+	market?: markets,
+	limit?: number,
+	offset?: number
+): Promise<void | AxiosResponse<any>> => {
+	if (!token) {
+		throw new Error('Please make sure that a token is provided.');
+	}
+	if (!id) {
+		throw new Error('Please make sure that an id is provided.');
+	}
+	if (typeof token !== 'string') {
+		throw new Error('Token must of type string.');
+	}
+	if (market && typeof market !== 'string') {
+		throw new Error(
+			'Market must be a string and a valid ISO 3166 Alpha 1-2 Code.'
+		);
+	}
+	if ((limit && limit > 50) || limit < 1) {
+		throw new Error('Limit must be less than 50 and greater than 1.');
+	}
+	if (limit && typeof limit !== 'number') {
+		throw new Error('Limit must be of type number.');
+	}
+	if (offset && typeof offset !== 'number') {
+		throw new Error('Offset must be of type number.');
+	}
+	if (typeof id !== 'string') {
+		throw new Error('Id must be string.');
+	} else if (typeof id === 'string' && token && id) {
+		return axios.get(
+			BASE.url +
+				`/albums/${id}/tracks?market=${market ? market : 'US'}&limit=${
+					limit ? limit : 1
+				}&offset=${offset ? offset : 1}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,

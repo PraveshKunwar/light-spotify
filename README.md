@@ -55,14 +55,15 @@ console.log(Spotify.getAccessToken); //returns the token.
 Making requests with light-spotify is easy. Want to get multiple albums? Easy.
 
 ```js
-const { LightSpotify } = require("light-spotify");
+const { LightSpotify } = require('light-spotify');
 const spotify = new LightSpotify();
 const albumIds = ['ID1', 'ID2', 'ID3']; // max 20 ids;
 //set the access token first.
 spotify.setAccessToken = 'asd'; // get the auth token;
 //param 1: token || param 2: the album id or album ids || param 3: the market (valid ISO 3161 code).
+const token = spotify.getAccessToken; // returns the token after its been set.
 spotify
-	.getMultipleAlbums(spotify.getAccessToken, albumIds, 'US') // returns Promise of AxiosResponse
+	.getMultipleAlbums(token, albumIds, 'US') // returns Promise of AxiosResponse
 	//Handle the resolved promise.
 	.then((i) => {
 		console.log(i.data);
